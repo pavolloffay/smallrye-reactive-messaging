@@ -80,6 +80,10 @@
     <module>examples/quickstart</module>
     <module>examples/snippets</module>
     <module>examples/cloud-events</module>
+
+    <module>reactive-messaging-tck</module>
+    <module>integration-tests</module>
+
   </modules>
 
   <dependencyManagement>

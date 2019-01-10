@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.logging.LogManager;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.Instance;
