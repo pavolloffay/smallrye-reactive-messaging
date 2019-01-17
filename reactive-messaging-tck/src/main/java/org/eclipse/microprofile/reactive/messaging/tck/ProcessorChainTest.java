@@ -1,5 +1,6 @@
 package org.eclipse.microprofile.reactive.messaging.tck;
 
+import org.assertj.core.api.Assertions;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -15,12 +16,12 @@ import java.util.ServiceLoader;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Arquillian.class)
-public class SimpleIncomingTest {
+public class ProcessorChainTest {
 
   @Deployment
   public static Archive<JavaArchive> deployment() {
     JavaArchive archive = ShrinkWrap.create(JavaArchive.class)
-      .addClasses(SimpleIncomingBean.class, ValueCollector.class, StringSource.class)
+      .addClasses(BeanWithChain.class)
       .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 
     ServiceLoader.load(ArchiveExtender.class).iterator().forEachRemaining(ext -> ext.extend(archive));
@@ -28,12 +29,10 @@ public class SimpleIncomingTest {
   }
 
   @Inject
-  private SimpleIncomingBean simple;
+  private BeanWithChain bean;
 
   @Test
-  public void testReceptionWithValues() {
-    assertThat(simple.getValues()).containsExactlyElementsOf(StringSource.VALUES);
+  public void test() {
+    assertThat(bean.list()).containsExactly("HELLO", "MICROPROFILE", "REACTIVE", "MESSAGING");
   }
-
-
 }
